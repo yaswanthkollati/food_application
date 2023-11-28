@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 Color white = Colors.white;
-
 Color orange = const Color.fromARGB(255, 203, 92, 64);
 Color lightOrange = const Color.fromARGB(255, 231, 104, 72);
 Color darkGrey = const Color(0xFF272a32);

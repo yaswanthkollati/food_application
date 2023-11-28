@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_application/cubit/app_cubit.dart';
+import 'package:food_application/screens/cart_page.dart';
 import 'package:food_application/utils/app_theme.dart';
 import 'package:food_application/utils/parameters.dart';
 import 'package:go_router/go_router.dart';
@@ -11,8 +12,12 @@ import '../utils/colors.dart';
 import '../utils/strings.dart';
 
 class FoodDetailPage extends StatelessWidget {
-  const FoodDetailPage({super.key, required this.parameters});
   final Parameters parameters;
+  final AppCubit appCubit;
+
+  const FoodDetailPage({Key? key, required this.parameters, required this.appCubit})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     context.read<AppCubit>().determineFoodPrice(parameters.foodItem.price);
@@ -34,7 +39,7 @@ class FoodDetailPage extends StatelessWidget {
                     state,
                   ),
                   bodyWidget(context, state),
-                  bottomWidget(state),
+                  bottomWidget(context, state, appCubit),
                 ],
               ),
             );
@@ -44,56 +49,70 @@ class FoodDetailPage extends StatelessWidget {
     );
   }
 
-  Row bottomWidget(AppState state) {
-    return
-     Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 35, left: 20),
-          child: Text(
-            '${state.foodOrderNumber} Items',
-            style: AppTheme.getTextTheme(null).bodyLarge!.copyWith(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 30, left: 75),
-          child: Text(
-            '${state.foodPrice}',
-            style: AppTheme.getTextTheme(null)
-                .titleLarge!
-                .copyWith(color: Colors.white, fontSize: 30),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 50, top: 30),
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: const Color(0xFF191a25),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const Icon(
-                Icons.shopping_bag_outlined,
+
+
+Row bottomWidget(BuildContext context, AppState state, AppCubit appCubit) {
+  return Row(
+    children: [
+      Container(
+        margin: const EdgeInsets.only(top: 35, left: 20),
+        child: Text(
+          '${state.foodOrderNumber} Items',
+          style: AppTheme.getTextTheme(null).bodyLarge!.copyWith(
                 color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
-              Container(
-                width: 8,
-                height: 8,
-                margin: const EdgeInsets.only(bottom: 11, left: 14),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.red),
-              )
-            ],
+        ),
+      ),
+      Container(
+        margin: const EdgeInsets.only(top: 30, left: 75),
+        child: Text(
+          '${state.foodPrice}',
+          style: AppTheme.getTextTheme(null).titleLarge!.copyWith(
+                color: Colors.white,
+                fontSize: 30,
+              ),
+        ),
+      ),
+   GestureDetector(
+  onTap: () {
+    // Pass the food index to addToCart when the cart button is clicked
+ context
+                      .read<AppCubit>().addToCart(parameters.foodIndex);  },
+  child: Container(
+    margin: const EdgeInsets.only(left: 50, top: 30),
+    width: 50,
+    height: 50,
+    decoration: BoxDecoration(
+      color: const Color(0xFF191a25),
+      borderRadius: BorderRadius.circular(100),
+    ),
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        const Icon(
+          Icons.shopping_bag_outlined,
+          color: Colors.white,
+        ),
+        Container(
+          width: 8,
+          height: 8,
+          margin: const EdgeInsets.only(bottom: 11, left: 14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.red,
           ),
-        )
+        ),
       ],
-    );
-  }
+    ),
+  ),
+),
+
+    ],
+  );
+}
+
 
   Container bodyWidget(BuildContext context, AppState state) {
     return Container(

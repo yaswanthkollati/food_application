@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_application/screens/cart_page.dart';
 import 'package:food_application/screens/favorites.dart';
 
 import '../utils/colors.dart';
@@ -44,7 +45,15 @@ class BottomBarWidget extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+             GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
+          child:Container(
             margin: const EdgeInsets.only(right: 25),
             width: 47,
             height: 47,
@@ -54,14 +63,8 @@ class BottomBarWidget extends StatelessWidget {
               size: 28,
             ),
           ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: Icon(
-              Icons.discount_outlined,
-              color: Colors.black.withOpacity(0.5),
-            ),
-          ),
+             ),
+
           Container(
             margin: const EdgeInsets.only(right: 25),
             width: 40,

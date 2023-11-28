@@ -30,7 +30,7 @@ class FavoritesScreen extends StatelessWidget {
                       parameters: Parameters(
                         foodItem: foodItem,
                         foodIndex: foodIndex,
-                      ),
+                      ), appCubit: appCubit,
                     ),
                   ),
                 );

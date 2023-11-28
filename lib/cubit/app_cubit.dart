@@ -3,15 +3,17 @@ import 'package:food_application/data/foodList.dart';
 import 'package:food_application/screens/home_page.dart';
 
 import 'app_state.dart';
-
 class AppCubit extends Cubit<AppState> {
   AppCubit()
       : super(
           const AppState(
-              likedFoodList: [],
-              foodOrderNumber: 1,
-              foodPrice: 0,
-              selectedCategory: 0),
+            cartItems: [],
+            likedFoodList: [],
+            foodOrderNumber: 1,
+            foodPrice: 0,
+            likedFoods: [],
+            selectedCategory: 0,
+          ),
         );
   List<String> likedFoodIndex = [];
 
@@ -33,32 +35,36 @@ class AppCubit extends Cubit<AppState> {
       emit(state.copyWith(likedFoodList: updatedLikedItems));
     }
   }
+   void addToCart(int foodIndex) {
+  // Get the currently selected food item
+  final selectedFoodItem = getFoodItemByIndex(foodIndex);
+
+  // Add the selected item to the cart
+  final updatedCartItems = List<FoodList>.from(state.cartItems)
+    ..add(selectedFoodItem);
+
+  emit(
+    state.copyWith(
+      cartItems: updatedCartItems,
+    ),
+  );
+}
+
 
   FoodList getFoodItemByIndex(int index) {
-    // Replace this with your actual data retrieval logic.
-    // Retrieve the FoodList object based on the given index.
-    // For example, if you have a list of FoodList items, you can return the item at the specified index.
+
     return foodList[index];
   }
 
   final likedFoods = <int>[];
-  // void likeDislikeFood(int index) {
-  //   final isLiked = state.likedFoodList.contains(index);
 
-  //   if (isLiked) {
-  //     state.likedFoodList.remove(index);
-  //   } else {
-  //     state.likedFoodList.add(index);
-  //   }
-
-  //   emit(state.copyWith(likedFoodList: List.from(state.likedFoodList)));
-  // }
 
   void determineFoodPrice(double foodPrice) {
     emit(
       state.copyWith(foodPrice: state.foodOrderNumber * foodPrice),
     );
   }
+
 
   void increaseAndDecreaseFoodOrder(bool isIncrease, double foodPrice) {
     emit(
@@ -83,4 +89,28 @@ class AppCubit extends Cubit<AppState> {
       ),
     );
   }
+
+void increaseAndDecreaseQuantity(int index, bool isIncrease) {
+  final updatedCartItems = List<FoodList>.from(state.cartItems);
+  final item = updatedCartItems[index];
+
+  if (isIncrease) {
+    item.quantity++;
+  } else {
+    if (item.quantity > 0) {
+      item.quantity--;
+    }
+  }
+
+  emit(
+    state.copyWith(
+      cartItems: updatedCartItems,
+    ),
+  );
+}
+
+
+
+
+
 }

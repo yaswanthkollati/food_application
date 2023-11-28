@@ -469,36 +469,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
 List<FoodList> foodList = [
   FoodList(
-    Strings.foodTitleList[0],
-    foodImageList[0],
-    Strings.foodDesc[0],
-    Strings.foodPriceList[0],
+    name: Strings.foodTitleList[0],
+    image: foodImageList[0],
+    description: Strings.foodDesc[0],
+    price: Strings.foodPriceList[0],
   ),
   FoodList(
-    Strings.foodTitleList[1],
-    foodImageList[1],
-    Strings.foodDesc[1],
-    Strings.foodPriceList[1],
+    name: Strings.foodTitleList[1],
+    image: foodImageList[1],
+    description: Strings.foodDesc[1],
+    price: Strings.foodPriceList[1],
   ),
   FoodList(
-    Strings.foodTitleList[2],
-    foodImageList[2],
-    Strings.foodDesc[2],
-    Strings.foodPriceList[2],
+    name: Strings.foodTitleList[2],
+    image: foodImageList[2],
+    description: Strings.foodDesc[2],
+    price: Strings.foodPriceList[2],
   ),
   FoodList(
-    Strings.foodTitleList[3],
-    foodImageList[3],
-    Strings.foodDesc[3],
-    Strings.foodPriceList[3],
+    name: Strings.foodTitleList[3],
+    image: foodImageList[3],
+    description: Strings.foodDesc[3],
+    price: Strings.foodPriceList[3],
   ),
   FoodList(
-    Strings.foodTitleList[4],
-    foodImageList[4],
-    Strings.foodDesc[4],
-    Strings.foodPriceList[4],
+    name: Strings.foodTitleList[4],
+    image: foodImageList[4],
+    description: Strings.foodDesc[4],
+    price: Strings.foodPriceList[4],
   )
 ];

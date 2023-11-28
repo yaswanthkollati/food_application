@@ -6,13 +6,17 @@ import 'package:food_application/screens/food_detail_page.dart';
 import 'package:food_application/screens/home_page.dart';
 import 'package:food_application/utils/parameters.dart';
 import 'package:go_router/go_router.dart';
-
-
 import 'cubit/app_cubit.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => AppCubit(),
+      child: MyApp(), // Your main widget
+    ),
+  );
 }
+
 
 /// The route configuration.
 final GoRouter _router = GoRouter(
@@ -28,7 +32,7 @@ final GoRouter _router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             Parameters parameters = state.extra as Parameters;
             return FoodDetailPage(
-              parameters: parameters,
+              parameters: parameters, appCubit: AppCubit(),
             );
           },
         ),
@@ -38,6 +42,7 @@ final GoRouter _router = GoRouter(
             return const CoursePage();
           },
         ),
+
       ],
     ),
   ],
