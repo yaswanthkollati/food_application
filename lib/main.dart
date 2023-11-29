@@ -36,12 +36,12 @@ final GoRouter _router = GoRouter(
             );
           },
         ),
-        GoRoute(
-          path: 'course',
-          builder: (BuildContext context, GoRouterState state) {
-            return const CoursePage();
-          },
-        ),
+        // GoRoute(
+        //   path: 'course',
+        //   builder: (BuildContext context, GoRouterState state) {
+        //     return const CoursePage();
+        //   },
+        // ),
 
       ],
     ),

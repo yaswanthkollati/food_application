@@ -11,11 +11,12 @@ class CartPage extends StatelessWidget {
         final appCubit = context.read<AppCubit>();
         final cartItems = state.cartItems;
 
-        double totalAmount = 0.0;
+        double subtotal = 0.0;
+        double deliverycharges = 12.0;
 
         // Calculate total amount outside the loop
         for (final cartItem in cartItems) {
-          totalAmount += cartItem.price * cartItem.quantity;
+          subtotal += cartItem.price * cartItem.quantity;
         }
 
         return Scaffold(
@@ -88,28 +89,44 @@ ListView.builder(
 )
 
               ),
-              Card(
-                margin: EdgeInsets.all(16.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Total Amount: \$${totalAmount.toStringAsFixed(2)}',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle checkout logic
-                        },
-                        child: Text('Checkout'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+             Card(
+              color:Colors.cyan.withOpacity(0.1),
+  margin: EdgeInsets.all(8.0),
+  child: Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Subtotal:${subtotal.toStringAsFixed(2)}',
+          style: TextStyle(fontSize: 16),
+        ),
+        SizedBox(height: 8),
+        Divider(height: 1, color: Colors.grey.withOpacity(0.3)),
+        SizedBox(height: 8),
+        Text(
+          'Delivery Charges:${deliverycharges.toStringAsFixed(2)}',
+          style: TextStyle(fontSize: 16),
+        ),
+        SizedBox(height: 8),
+        Divider(height:0.1, color: Colors.grey.withOpacity(0.3)),
+        SizedBox(height: 8),
+        Text(
+          'Total Price: ${(subtotal + deliverycharges).toStringAsFixed(2)}',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            // Handle checkout logic
+          },
+          child: Text('Checkout'),
+        ),
+      ],
+    ),
+  ),
+),
+
             ],
           ),
         );

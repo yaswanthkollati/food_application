@@ -65,7 +65,6 @@ class _HomePageState extends State<HomePage> {
   ),
   items: sliderimageList.map((assetPath) {
     return Container(
-      height: 80, // Set the desired height here
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -103,66 +102,7 @@ class _HomePageState extends State<HomePage> {
                           },
                           itemCount: 5),
                     ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 20),
-                    //   height: 80,
-                    //   child: ListView.separated(
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemBuilder: (context, index) {
-                    //         return GestureDetector(
-                    //           onTap: () {},
-                    //           child: Container(
-                    //             margin:
-                    //                 EdgeInsets.only(left: index == 0 ? 20 : 0),
-                    //             height: 60,
-                    //             width: 120,
-                    //             decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(14),
-                    //               color: colorList[index],
-                    //             ),
-                    //             child: Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               mainAxisAlignment:
-                    //                   MainAxisAlignment.spaceBetween,
-                    //               children: [
-                    //                 Container(
-                    //                   margin: const EdgeInsets.only(
-                    //                       top: 5, left: 16),
-                    //                   child: Text(
-                    //                     Strings.categoryListName[index],
-                    //                     style: AppTheme.getTextTheme(null)
-                    //                         .bodyMedium!
-                    //                         .copyWith(
-                    //                             fontWeight: FontWeight.w500,
-                    //                             fontSize: 16,
-                    //                             color: Colors.black),
-                    //                   ),
-                    //                 ),
-                    //                 Container(
-                    //                   margin: const EdgeInsets.only(left: 70),
-                    //                   child: ClipRRect(
-                    //                     borderRadius: const BorderRadius.only(
-                    //                       bottomRight: Radius.circular(14),
-                    //                     ),
-                    //                     child: Image.asset(
-                    //                       croppedFoodImageList[index],
-                    //                       height: 50,
-                    //                       width: 50,
-                    //                     ),
-                    //                   ),
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         );
-                    //       },
-                    //       separatorBuilder: (context, index) {
-                    //         return Container(
-                    //           width: 12,
-                    //         );
-                    //       },
-                    //       itemCount: 4),
-                    // ),
+
                     seeAllRowWidget(Strings.nearbyFood, state),
                     locationWidget(),
                     foodListWidget(state),
@@ -185,7 +125,7 @@ class _HomePageState extends State<HomePage> {
           end: Alignment.bottomCenter,
           colors: [
             Colors.white,
-            Colors.grey.withOpacity(0.1),
+            Color.fromARGB(255, 225, 211, 211).withOpacity(0.1),
           ],
         ),
       ),
@@ -357,9 +297,9 @@ class _HomePageState extends State<HomePage> {
 
     if (hour >= 4 && hour < 11) {
       mealTime = 'Breakfast';
-     } else if (hour >= 11 && hour < 15) {
+     } else if (hour >= 11 && hour < 16) {
       mealTime = 'Lunch';
-    } else if(hour >= 15 && hour < 18) {
+    } else if(hour >= 16 && hour < 19) {
       mealTime = 'snacks';
     }else
     mealTime = 'Dinner';
@@ -396,108 +336,47 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container addressWidget(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 22, left: 22, top: 30),
-      height: 70,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              'assets/images/map.png',
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 8, left: 24),
-                        child: const Icon(
-                          Icons.location_on,
-                          size: 25,
-                          color: Color.fromARGB(255, 236, 178, 7),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            Strings.yourDeliveryAddress,
-                            style:
-                                AppTheme.getTextTheme(null).bodySmall!.copyWith(
-                                      color: Colors.black.withOpacity(0.6),
-                                    ),
-                          ),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            Strings.sampleAddress,
-                            style: AppTheme.getTextTheme(null)
-                                .bodyMedium!
-                                .copyWith(fontSize: 12, color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 25, bottom: 5),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: Colors.black.withOpacity(0.6),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+
 }
-List<FoodList> foodList = [
-  FoodList(
-    name: Strings.foodTitleList[0],
-    image: foodImageList[0],
-    description: Strings.foodDesc[0],
-    price: Strings.foodPriceList[0],
+List<FoodList> foodList = List.generate(
+  Strings.foodTitleList.length,
+  (index) => FoodList(
+    name: Strings.foodTitleList[index],
+    image: foodImageList[index],
+    description: Strings.foodDesc[index],
+    price: Strings.foodPriceList[index],
   ),
-  FoodList(
-    name: Strings.foodTitleList[1],
-    image: foodImageList[1],
-    description: Strings.foodDesc[1],
-    price: Strings.foodPriceList[1],
-  ),
-  FoodList(
-    name: Strings.foodTitleList[2],
-    image: foodImageList[2],
-    description: Strings.foodDesc[2],
-    price: Strings.foodPriceList[2],
-  ),
-  FoodList(
-    name: Strings.foodTitleList[3],
-    image: foodImageList[3],
-    description: Strings.foodDesc[3],
-    price: Strings.foodPriceList[3],
-  ),
-  FoodList(
-    name: Strings.foodTitleList[4],
-    image: foodImageList[4],
-    description: Strings.foodDesc[4],
-    price: Strings.foodPriceList[4],
-  )
-];
+);
+
+// List<FoodList> foodList = [
+//   FoodList(
+//     name: Strings.foodTitleList[0],
+//     image: foodImageList[0],
+//     description: Strings.foodDesc[0],
+//     price: Strings.foodPriceList[0],
+//   ),
+//   FoodList(
+//     name: Strings.foodTitleList[1],
+//     image: foodImageList[1],
+//     description: Strings.foodDesc[1],
+//     price: Strings.foodPriceList[1],
+//   ),
+//   FoodList(
+//     name: Strings.foodTitleList[2],
+//     image: foodImageList[2],
+//     description: Strings.foodDesc[2],
+//     price: Strings.foodPriceList[2],
+//   ),
+//   FoodList(
+//     name: Strings.foodTitleList[3],
+//     image: foodImageList[3],
+//     description: Strings.foodDesc[3],
+//     price: Strings.foodPriceList[3],
+//   ),
+//   FoodList(
+//     name: Strings.foodTitleList[4],
+//     image: foodImageList[4],
+//     description: Strings.foodDesc[4],
+//     price: Strings.foodPriceList[4],
+//   )
+// ];
