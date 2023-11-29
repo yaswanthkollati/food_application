@@ -4,9 +4,12 @@ https://github.com/yaswanthkollati/food_application/assets/113980907/b595077e-d7
 A new Flutter project.
 
 Development Setup
+
 Clone the repository and run the following commands:
 
 flutter pub get
+
+
 flutter run
 
 ## Getting Started
